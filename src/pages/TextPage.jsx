@@ -6,28 +6,24 @@ import { FcLike } from "react-icons/fc";
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import '../styles/TextPage.css'
+import { NavLink } from 'react-router-dom';
 
 const TextPage = () => {
     const [clicked, setClicked] = useState(false)
-    console.log(clicked)
-    const [toSwitch, setToSwitch] = useState(false)
-
-    const customCursorStyle = {
-        cursor: 'url(/pointer.png), auto'
-    };
-
 
     return (
         <div className=' flex min-w-screen min-h-screen justify-center items-center relative'>
             {!clicked && (
-
                 <div className=' relative' >
-                    <button className=' cursor-move' onClick={() => setClicked(true)}>
-                        <img src="/envelope.gif" alt="" className=' w-64 h-60' />
-                    </button>
-                    <img src="/arrow.gif" alt="" className=' absolute left-[90%] top-[20%]' />
-                </div>
+                    <div >
+                        <button className='cursorChange cursor-pointer' onClick={() => setClicked(true)}>
+                            <img src="/email.png" alt="" className=' w-64 h-60 emailImg' />
+                        </button>
 
+                    </div>
+                    <img src="/arrow.gif" alt="" className=' absolute left-[120%] top-[20%]' />
+                    <p className=' fixed bottom-0 left-0 p-5 font-semibold tracking-wider text-lg'>Click the Envelope to see what I wanna talk to you ...</p>
+                </div>
             )}
             {clicked && (
                 <div className="">
@@ -46,6 +42,7 @@ const TextPage = () => {
                         <SwiperSlide><img src="/postCards/11.jpg" alt="" /></SwiperSlide>
                         <SwiperSlide><img src="/postCards/12.jpg" alt="" /></SwiperSlide>
                         <SwiperSlide><img src="/postCards/13.jpg" alt="" /></SwiperSlide>
+                        <SwiperSlide><NavLink to={'/drag'}>Click and Go To Next Slide</NavLink></SwiperSlide>
                     </Swiper>
                 </div>
             )}
