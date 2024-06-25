@@ -58,7 +58,7 @@ const Main = () => {
                             <div className='mt-10'>
                                 <p className='font-semibold text-xl tracking-wider'>Do You Wanna Go Next Slide ??</p>
                                 <div className="flex justify-center items-center mt-2">
-                                    <NavLink to="/drag" className="btn btn-primary">Yes</NavLink>
+                                    <NavLink to="/textPage" className="btn btn-primary">Yes</NavLink>
                                     <button className='btn btn-primary ml-5' onClick={() => setClickNo(true)}>No</button>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ const Main = () => {
                                     Why??
                                 </span>
                             ))}
-                            <button className='btn btn-primary ml-5 fixed bottom-[10%] left-[45%]' onClick={() => setClickNo(false)}>Try Again!!!</button>
+                            <button className='btn btn-primary ml-5 fixed bottom-[10%] left-[45%]' onClick={() => setClickNo(false)}>Choose Again !!!</button>
                         </div>
                     )}
                 </>
