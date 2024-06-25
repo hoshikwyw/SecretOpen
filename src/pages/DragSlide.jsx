@@ -1,8 +1,9 @@
 import interact from 'interactjs';
 import React, { useEffect, useRef, useState } from 'react';
+import "../styles/DragPage.css"
 
 const DragSlide = () => {
-    const position = { x: 0, y: 0 };
+    const position = { x: 150, y: 150 };
     const elementRef = useRef(null);
     const [isInsideDropZone, setIsInsideDropZone] = useState(false);
 
@@ -50,20 +51,81 @@ const DragSlide = () => {
         });
     }, []);
 
+    const createTextSpans = (text) => {
+        return text.split('  ').map((char, index) => (
+            <span key={index} className="textItem" style={{ '--i': index + 1 }}>{char}</span>
+        ))
+    }
+
     return (
-        <div className='w-screen h-screen relative'>
+        <div className='w-screen h-screen overflow-hidden relative bg-black'>
+            <div className="textArea font-semibold text-3xl flex justify-center mt-20">
+                {createTextSpans("I wanna tell  you something . I am really like you . Can you be mine ?")}
+                <span className='textItem' style={{ '--i': 1 }}>I</span>
+                <span className='textItem' style={{ '--i': 2 }}>I</span>
+                <span className='textItem' style={{ '--i': 3 }}>I</span>
+                <span className='textItem' style={{ '--i': 4 }}>I</span>
+                <span className='textItem' style={{ '--i': 5 }}>I</span>
+                <span className='textItem' style={{ '--i': 6 }}>I</span>
+                <span className='textItem' style={{ '--i': 7 }}>I</span>
+                <span className='textItem' style={{ '--i': 8 }}>I</span>
+                <span className='textItem' style={{ '--i': 9 }}>I</span>
+                <span className='textItem' style={{ '--i': 10 }}>I</span>
+                <span className='textItem' style={{ '--i': 11 }}>I</span>
+                <span className='textItem' style={{ '--i': 12 }}>I</span>
+                <span className='textItem' style={{ '--i': 13 }}>I</span>
+                <span className='textItem' style={{ '--i': 14 }}>I</span>
+                <span className='textItem' style={{ '--i': 15 }}>I</span>
+                <span className='textItem' style={{ '--i': 16 }}>I</span>
+                <span className='textItem' style={{ '--i': 17 }}>I</span>
+                <span className='textItem' style={{ '--i': 18 }}>I</span>
+                <span className='textItem' style={{ '--i': 19 }}>I</span>
+                <span className='textItem' style={{ '--i': 20 }}>I</span>
+                <span className='textItem' style={{ '--i': 21 }}>I</span>
+                <span className='textItem' style={{ '--i': 22 }}>I</span>
+                <span className='textItem' style={{ '--i': 23 }}>I</span>
+                <span className='textItem' style={{ '--i': 24 }}>I</span>
+                <span className='textItem' style={{ '--i': 25 }}>I</span>
+                <span className='textItem' style={{ '--i': 26 }}>I</span>
+                <span className='textItem' style={{ '--i': 27 }}>I</span>
+                <span className='textItem' style={{ '--i': 28 }}>I</span>
+                <span className='textItem' style={{ '--i': 29 }}>I</span>
+                <span className='textItem' style={{ '--i': 30 }}>I</span>
+                <span className='textItem' style={{ '--i': 31 }}>I</span>
+                <span className='textItem' style={{ '--i': 32 }}>I</span>
+                <span className='textItem' style={{ '--i': 33 }}>I</span>
+                <span className='textItem' style={{ '--i': 34 }}>I</span>
+                <span className='textItem' style={{ '--i': 35 }}>I</span>
+                <span className='textItem' style={{ '--i': 36 }}>I</span>
+                <span className='textItem' style={{ '--i': 37 }}>I</span>
+                <span className='textItem' style={{ '--i': 38 }}>I</span>
+                <span className='textItem' style={{ '--i': 39 }}>I</span>
+                <span className='textItem' style={{ '--i': 40 }}>I</span>
+                <span className='textItem' style={{ '--i': 41 }}>I</span>
+                <span className='textItem' style={{ '--i': 42 }}>I</span>
+                <span className='textItem' style={{ '--i': 43 }}>I</span>
+                <span className='textItem' style={{ '--i': 44 }}>I</span>
+                <span className='textItem' style={{ '--i': 45 }}>I</span>
+                <span className='textItem' style={{ '--i': 46 }}>I</span>
+                <span className='textItem' style={{ '--i': 47 }}>I</span>
+                <span className='textItem' style={{ '--i': 48 }}>I</span>
+                <span className='textItem' style={{ '--i': 49 }}>I</span>
+                <span className='textItem' style={{ '--i': 50 }}>I</span>
+            </div>
             <img src="/character.png" ref={elementRef} className='draggable border-yellow-200 w-32 h-33 z-30 absolute' />
             <h1 className="fixed bottom-0 font-semibold tracking-wider text-lg p-2">Drag Dino to the correct place to see my secret!!</h1>
-            <div className="dropzone absolute w-48 h-48 left-[45%] top-[40%] z-10">
+            <div className="dropzone absolute w-48 h-48 left-[30%] top-[60%] z-10">
                 <img src="/home.png" alt="" className='w-full h-full select-none pointer-events-none' />
             </div>
-            {isInsideDropZone && (
+            {/* {isInsideDropZone && (
                 <div className="  bg-gray-100 fixed z-50 left-[20%] top-[20%] w-[60%] h-[60%]">
                     <img src="/rest.gif" alt="" className=' w-full h-full select-none pointer-events-none' />
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
 
 export default DragSlide;
+
+// I wanna tell you something . I am really like you . Can you be mine ?
