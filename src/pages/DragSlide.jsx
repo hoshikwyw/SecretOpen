@@ -3,9 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import "../styles/DragPage.css"
 
 const DragSlide = () => {
-    const position = { x: 150, y: 150 };
+    const position = { x: 0, y: 0 };
     const elementRef = useRef(null);
     const [isInsideDropZone, setIsInsideDropZone] = useState(false);
+    const [clickedYes, setClickedYes] = useState(false)
+    const [hovered, setHovered] = useState(false)
+    const [noPosition, setNoPosition] = useState({ left: 0, top: 0 });
 
     useEffect(() => {
         const element = elementRef.current;
@@ -52,16 +55,66 @@ const DragSlide = () => {
     }, []);
 
     const createTextSpans = (text) => {
-        return text.split('  ').map((char, index) => (
+        return text.split('').map((char, index) => (
             <span key={index} className="textItem" style={{ '--i': index + 1 }}>{char}</span>
         ))
     }
 
+    const handleHover = () => {
+        const newX = Math.random() * (window.innerWidth - 100);
+        const newY = Math.random() * (window.innerHeight - 150);
+        setNoPosition({ left: newX, top: newY });
+        setHovered(!hovered)
+    }
+    // if(hovered) {
+    // }
+
     return (
         <div className='w-screen h-screen overflow-hidden relative bg-black'>
-            <div className="textArea font-semibold text-3xl flex justify-center mt-20">
-                {createTextSpans("I wanna tell  you something . I am really like you . Can you be mine ?")}
-                <span className='textItem' style={{ '--i': 1 }}>I</span>
+            {!clickedYes && (
+                <div className=" flex flex-col justify-center items-center">
+                    <div className="textArea font-semibold text-3xl flex justify-center mt-20">
+                        {createTextSpans("I  wanna  tell  you  something  .  I  am  really  like you  .  Can  you  be  mine  ?")}
+                    </div>
+                    <div className=" my-14 w-60 h-60">
+                        <img src="/gifs/beMine.jpg" alt="" className=' rounded-md' />
+                    </div>
+                    <div className="">
+                        <button className=' border-2 w-[50px] h-[50px] ' onClick={() => setClickedYes(true)}>
+                            {/* <img src="/character.png" alt="" className='w-32 h-33' /> */}
+                            Yes
+                        </button>
+                        <button className={`random-button ${hovered ? 'hovered' : ''} border-2`} style={{ left: `${noPosition.left}px`, top: `${noPosition.top}px}` }} onMouseEnter={handleHover} onMouseLeave={handleHover}>
+                            {/* <img src="/character.png" alt="" className='w-32 h-33' /> */}
+                            No
+                        </button>
+                    </div>
+                </div>
+
+            )}
+            {clickedYes && (
+                <div className=' min-w-screen min-h-screen overflow-hidden relative'>
+                    <img src="/character.png" ref={elementRef} className='draggable border-yellow-200 w-32 h-33 z-30 absolute' />
+                    <p ref={elementRef} className='draggable border-2 border-yellow-200 w-32 h-33 z-30 absolute'>answer</p>
+                    <h1 className="fixed bottom-0 font-semibold tracking-wider text-lg p-2">Drag Dino to the correct place to see my secret!!</h1>
+                    <div className="dropzone absolute w-48 h-48 left-[30%] top-[60%] z-10">
+                        <img src="/home.png" alt="" className='w-full h-full select-none pointer-events-none' />
+                    </div>
+                    {isInsideDropZone && (
+                        <div className="  bg-gray-100 fixed z-50 left-[20%] top-[20%] w-[60%] h-[60%]">
+                            <img src="/rest.gif" alt="" className=' w-full h-full select-none pointer-events-none' />
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default DragSlide;
+
+// I wanna tell you something . I am really like you . Can you be mine ?
+{/* <span className='textItem' style={{ '--i': 1 }}>I</span>
                 <span className='textItem' style={{ '--i': 2 }}>I</span>
                 <span className='textItem' style={{ '--i': 3 }}>I</span>
                 <span className='textItem' style={{ '--i': 4 }}>I</span>
@@ -110,22 +163,4 @@ const DragSlide = () => {
                 <span className='textItem' style={{ '--i': 47 }}>I</span>
                 <span className='textItem' style={{ '--i': 48 }}>I</span>
                 <span className='textItem' style={{ '--i': 49 }}>I</span>
-                <span className='textItem' style={{ '--i': 50 }}>I</span>
-            </div>
-            <img src="/character.png" ref={elementRef} className='draggable border-yellow-200 w-32 h-33 z-30 absolute' />
-            <h1 className="fixed bottom-0 font-semibold tracking-wider text-lg p-2">Drag Dino to the correct place to see my secret!!</h1>
-            <div className="dropzone absolute w-48 h-48 left-[30%] top-[60%] z-10">
-                <img src="/home.png" alt="" className='w-full h-full select-none pointer-events-none' />
-            </div>
-            {/* {isInsideDropZone && (
-                <div className="  bg-gray-100 fixed z-50 left-[20%] top-[20%] w-[60%] h-[60%]">
-                    <img src="/rest.gif" alt="" className=' w-full h-full select-none pointer-events-none' />
-                </div>
-            )} */}
-        </div>
-    );
-};
-
-export default DragSlide;
-
-// I wanna tell you something . I am really like you . Can you be mine ?
+                <span className='textItem' style={{ '--i': 50 }}>I</span> */}
