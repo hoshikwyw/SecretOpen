@@ -1,5 +1,6 @@
 import interact from 'interactjs';
 import React, { useEffect, useRef, useState } from 'react';
+import { BsEmojiTear } from "react-icons/bs";
 import "../styles/DragPage.css"
 
 const DragSlide = () => {
@@ -8,7 +9,8 @@ const DragSlide = () => {
     const [isInsideDropZone, setIsInsideDropZone] = useState(false);
     const [clickedYes, setClickedYes] = useState(false)
     const [hovered, setHovered] = useState(false)
-    const [noPosition, setNoPosition] = useState({ left: 0, top: 0 });
+    const [noPosition, setNoPosition] = useState({ left: 52, top: 78 }); // Initial percentage values
+    const [moveCount, setMoveCount] = useState(0)
 
     useEffect(() => {
         const element = elementRef.current;
@@ -61,13 +63,50 @@ const DragSlide = () => {
     }
 
     const handleHover = () => {
-        const newX = Math.random() * (window.innerWidth - 100);
-        const newY = Math.random() * (window.innerHeight - 150);
+        const newX = Math.random() * 90; // Random percentage for left
+        const newY = Math.random() * 85; // Random percentage for top
         setNoPosition({ left: newX, top: newY });
+        setMoveCount(prevCount => prevCount + 1)
+        console.log("move>>>", moveCount)
         setHovered(!hovered)
     }
-    // if(hovered) {
-    // }
+
+    const getImageSrc = () => {
+        if (moveCount < 10) {
+            return "/gifs/beMine.jpg"
+        } else if (moveCount < 30) {
+            return "/gifs/waiting.gif"
+        } else if (moveCount < 60) {
+            return "gifs/wait2.gif"
+        } else if (moveCount < 90) {
+            return "sadGifs/nono.gif"
+        } else if (moveCount < 100) {
+            return "sadGifs/cry.gif"
+        } else if (moveCount < 110) {
+            return "sadGifs/cry2.gif"
+        } else {
+            return "sadGifs/mad.gif"
+        }
+    }
+
+    const getText = () => {
+        if (moveCount < 10) {
+            return "Please say Yes  "
+        } else if (moveCount < 30) {
+            return "Are you sure you don't want to be mine?"
+        } else if (moveCount < 60) {
+            return "Okay, I get it. But think again!"
+        } else if (moveCount < 90) {
+            return "No no no please don't pick no"
+        } else if (moveCount < 100) {
+            return "I'm gonna cry now"
+        } else if (moveCount < 110) {
+            return "Why? Why? Why?"
+        } else {
+            return "Now you can't reject me anymore !"
+        }
+    }
+
 
     return (
         <div className='w-screen h-screen overflow-hidden relative bg-black'>
@@ -77,15 +116,14 @@ const DragSlide = () => {
                         {createTextSpans("I  wanna  tell  you  something  .  I  am  really  like you  .  Can  you  be  mine  ?")}
                     </div>
                     <div className=" my-14 w-60 h-60">
-                        <img src="/gifs/beMine.jpg" alt="" className=' rounded-md' />
+                        <img src={getImageSrc()} alt="" className='main-img rounded-md' />
                     </div>
+                    <p className=' flex items-center gap-2 font-semibold mb-10 text-xl'>{getText()}</p>
                     <div className="">
-                        <button className=' border-2 w-[50px] h-[50px] ' onClick={() => setClickedYes(true)}>
-                            {/* <img src="/character.png" alt="" className='w-32 h-33' /> */}
+                        <button className={`random-button border-2 me-10 ${moveCount >= 110 ? 'w-[10%]' : ''} absolute left-[45%] top-[78%]`} onClick={() => setClickedYes(true)}>
                             Yes
                         </button>
-                        <button className={`random-button ${hovered ? 'hovered' : ''} border-2`} style={{ left: `${noPosition.left}px`, top: `${noPosition.top}px}` }} onMouseEnter={handleHover} onMouseLeave={handleHover}>
-                            {/* <img src="/character.png" alt="" className='w-32 h-33' /> */}
+                        <button className={`random-button ${hovered ? 'hovered' : ''} border-2 ${moveCount >= 110 ? 'hidden' : ''}`} style={{ left: `${noPosition.left}%`, top: `${noPosition.top}%` }} onMouseEnter={handleHover} onMouseLeave={handleHover}>
                             No
                         </button>
                     </div>
@@ -94,7 +132,6 @@ const DragSlide = () => {
             )}
             {clickedYes && (
                 <div className=' min-w-screen min-h-screen overflow-hidden relative'>
-                    <img src="/character.png" ref={elementRef} className='draggable border-yellow-200 w-32 h-33 z-30 absolute' />
                     <p ref={elementRef} className='draggable border-2 border-yellow-200 w-32 h-33 z-30 absolute'>answer</p>
                     <h1 className="fixed bottom-0 font-semibold tracking-wider text-lg p-2">Drag Dino to the correct place to see my secret!!</h1>
                     <div className="dropzone absolute w-48 h-48 left-[30%] top-[60%] z-10">
@@ -112,55 +149,3 @@ const DragSlide = () => {
 };
 
 export default DragSlide;
-
-// I wanna tell you something . I am really like you . Can you be mine ?
-{/* <span className='textItem' style={{ '--i': 1 }}>I</span>
-                <span className='textItem' style={{ '--i': 2 }}>I</span>
-                <span className='textItem' style={{ '--i': 3 }}>I</span>
-                <span className='textItem' style={{ '--i': 4 }}>I</span>
-                <span className='textItem' style={{ '--i': 5 }}>I</span>
-                <span className='textItem' style={{ '--i': 6 }}>I</span>
-                <span className='textItem' style={{ '--i': 7 }}>I</span>
-                <span className='textItem' style={{ '--i': 8 }}>I</span>
-                <span className='textItem' style={{ '--i': 9 }}>I</span>
-                <span className='textItem' style={{ '--i': 10 }}>I</span>
-                <span className='textItem' style={{ '--i': 11 }}>I</span>
-                <span className='textItem' style={{ '--i': 12 }}>I</span>
-                <span className='textItem' style={{ '--i': 13 }}>I</span>
-                <span className='textItem' style={{ '--i': 14 }}>I</span>
-                <span className='textItem' style={{ '--i': 15 }}>I</span>
-                <span className='textItem' style={{ '--i': 16 }}>I</span>
-                <span className='textItem' style={{ '--i': 17 }}>I</span>
-                <span className='textItem' style={{ '--i': 18 }}>I</span>
-                <span className='textItem' style={{ '--i': 19 }}>I</span>
-                <span className='textItem' style={{ '--i': 20 }}>I</span>
-                <span className='textItem' style={{ '--i': 21 }}>I</span>
-                <span className='textItem' style={{ '--i': 22 }}>I</span>
-                <span className='textItem' style={{ '--i': 23 }}>I</span>
-                <span className='textItem' style={{ '--i': 24 }}>I</span>
-                <span className='textItem' style={{ '--i': 25 }}>I</span>
-                <span className='textItem' style={{ '--i': 26 }}>I</span>
-                <span className='textItem' style={{ '--i': 27 }}>I</span>
-                <span className='textItem' style={{ '--i': 28 }}>I</span>
-                <span className='textItem' style={{ '--i': 29 }}>I</span>
-                <span className='textItem' style={{ '--i': 30 }}>I</span>
-                <span className='textItem' style={{ '--i': 31 }}>I</span>
-                <span className='textItem' style={{ '--i': 32 }}>I</span>
-                <span className='textItem' style={{ '--i': 33 }}>I</span>
-                <span className='textItem' style={{ '--i': 34 }}>I</span>
-                <span className='textItem' style={{ '--i': 35 }}>I</span>
-                <span className='textItem' style={{ '--i': 36 }}>I</span>
-                <span className='textItem' style={{ '--i': 37 }}>I</span>
-                <span className='textItem' style={{ '--i': 38 }}>I</span>
-                <span className='textItem' style={{ '--i': 39 }}>I</span>
-                <span className='textItem' style={{ '--i': 40 }}>I</span>
-                <span className='textItem' style={{ '--i': 41 }}>I</span>
-                <span className='textItem' style={{ '--i': 42 }}>I</span>
-                <span className='textItem' style={{ '--i': 43 }}>I</span>
-                <span className='textItem' style={{ '--i': 44 }}>I</span>
-                <span className='textItem' style={{ '--i': 45 }}>I</span>
-                <span className='textItem' style={{ '--i': 46 }}>I</span>
-                <span className='textItem' style={{ '--i': 47 }}>I</span>
-                <span className='textItem' style={{ '--i': 48 }}>I</span>
-                <span className='textItem' style={{ '--i': 49 }}>I</span>
-                <span className='textItem' style={{ '--i': 50 }}>I</span> */}
