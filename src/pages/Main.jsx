@@ -54,10 +54,10 @@ const Main = () => {
                 <>
                     {!clickNo && (
                         <>
-                            <p className='font-semibold text-3xl tracking-wider'>Hello {surName}, welcome to my Secret Page.</p>
+                            <p className=' font-semibold text-3xl tracking-wider text-gray-300'>Hello <span className=' font-bold text-blue-400'>{surName}</span> , welcome to my Secret Page.</p>
                             <div className='mt-10'>
                                 <p className='font-semibold text-xl tracking-wider'>Do You Wanna Go Next Slide ??</p>
-                                <div className="flex justify-center items-center mt-2">
+                                <div className="flex justify-center items-center mt-10">
                                     <NavLink to="/textPage" className="btn btn-primary">Yes</NavLink>
                                     <button className='btn btn-primary ml-5' onClick={() => setClickNo(true)}>No</button>
                                 </div>
