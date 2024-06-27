@@ -110,14 +110,14 @@ const DragSlide = () => {
                             <div>
                                 <div ref={lineRef} style={{ width: '50%', height: '2px', position: 'absolute', top: '50%', left: '13%' }}></div>
                                 <Draggable onDrag={handleDrag} axis='x' bounds='parent'>
-                                    <img ref={imageRef} src="/water.png" alt="" className=' w-14 absolute left-[10%] top-[42%] user-select-none' />
+                                    <img ref={imageRef} src="/water.png" alt="" className=' w-16 absolute left-[10%] top-[42%] user-select-none' />
                                 </Draggable>
                                 <img src="/fire.png" alt="" className=' w-16 fixed top-[32%] left-[49%]' />
                             </div>
                         )}
                         {dragged && (
                             <div className="">
-                                <img src="/combine.png" alt="" className=' w-32 fixed top-[35%] left-[46%] contrast-200' />
+                                <img src="/combine.png" alt="" className=' w-36 fixed top-[35%] left-[45%] contrast-200' />
                             </div>
                         )}
                     </div>
