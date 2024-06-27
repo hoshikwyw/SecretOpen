@@ -74,15 +74,15 @@ const DragSlide = () => {
     const getImageSrc = () => {
         if (moveCount < 10) {
             return "/gifs/beMine.jpg"
-        } else if (moveCount < 30) {
+        } else if (moveCount < 20) {
             return "/gifs/waiting.gif"
-        } else if (moveCount < 60) {
+        } else if (moveCount < 36) {
             return "gifs/wait2.gif"
-        } else if (moveCount < 90) {
+        } else if (moveCount < 50) {
             return "sadGifs/nono.gif"
-        } else if (moveCount < 100) {
+        } else if (moveCount < 66) {
             return "sadGifs/cry.gif"
-        } else if (moveCount < 110) {
+        } else if (moveCount < 70) {
             return "sadGifs/cry2.gif"
         } else {
             return "sadGifs/mad.gif"
@@ -92,15 +92,15 @@ const DragSlide = () => {
     const getText = () => {
         if (moveCount < 10) {
             return "Please say Yes  "
-        } else if (moveCount < 30) {
+        } else if (moveCount < 20) {
             return "Are you sure you don't want to be mine?"
-        } else if (moveCount < 60) {
+        } else if (moveCount < 36) {
             return "Okay, I get it. But think again!"
-        } else if (moveCount < 90) {
+        } else if (moveCount < 50) {
             return "No no no please don't pick no"
-        } else if (moveCount < 100) {
+        } else if (moveCount < 66) {
             return "I'm gonna cry now"
-        } else if (moveCount < 110) {
+        } else if (moveCount < 70) {
             return "Why? Why? Why?"
         } else {
             return "Now you can't reject me anymore !"
@@ -120,10 +120,10 @@ const DragSlide = () => {
                     </div>
                     <p className=' flex items-center gap-2 font-semibold mb-10 text-xl'>{getText()}</p>
                     <div className="">
-                        <button className={`random-button border-2 me-10 ${moveCount >= 110 ? 'w-[10%]' : ''} absolute left-[45%] top-[78%]`} onClick={() => setClickedYes(true)}>
+                        <button className={`random-button border-2 me-10 ${moveCount >= 70 ? 'w-[10%]' : ''} absolute left-[45%] top-[78%]`} onClick={() => setClickedYes(true)}>
                             Yes
                         </button>
-                        <button className={`random-button ${hovered ? 'hovered' : ''} border-2 ${moveCount >= 110 ? 'hidden' : ''}`} style={{ left: `${noPosition.left}%`, top: `${noPosition.top}%` }} onMouseEnter={handleHover} onMouseLeave={handleHover}>
+                        <button className={`random-button ${hovered ? 'hovered' : ''} border-2 ${moveCount >= 70 ? 'hidden' : ''}`} style={{ left: `${noPosition.left}%`, top: `${noPosition.top}%` }} onMouseEnter={handleHover} onMouseLeave={handleHover}>
                             No
                         </button>
                     </div>
