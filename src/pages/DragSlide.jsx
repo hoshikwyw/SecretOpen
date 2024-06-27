@@ -1,124 +1,98 @@
-import interact from 'interactjs';
 import React, { useEffect, useRef, useState } from 'react';
-import { BsEmojiTear } from "react-icons/bs";
+import gsap from 'gsap';
+import Draggable from 'react-draggable';
+import CSSPlugin from 'gsap/CSSPlugin';
 import "../styles/DragPage.css"
 
+gsap.registerPlugin(CSSPlugin);
+
 const DragSlide = () => {
-    const position = { x: 0, y: 0 };
-    const elementRef = useRef(null);
-    const [isInsideDropZone, setIsInsideDropZone] = useState(false);
-    const [clickedYes, setClickedYes] = useState(false)
-    const [hovered, setHovered] = useState(false)
-    const [noPosition, setNoPosition] = useState({ left: 52, top: 78 }); // Initial percentage values
-    const [moveCount, setMoveCount] = useState(0)
+    const [clickedYes, setClickedYes] = useState(false);
+    const [hovered, setHovered] = useState(false);
+    const [noPosition, setNoPosition] = useState({ left: 52, top: 78 });
+    const [moveCount, setMoveCount] = useState(0);
+    const [dragged, setDragged] = useState(false);
+    const imageRef = useRef(null);
+    const lineRef = useRef(null);
+
+
 
     useEffect(() => {
-        const element = elementRef.current;
-
-        if (!element) {
-            console.error('Element reference is null.');
-            return;
-        }
-
-        interact(element).draggable({
-            listeners: {
-                start(event) {
-                    console.log('drag started', event);
-                },
-                move(event) {
-                    position.x += event.dx;
-                    position.y += event.dy;
-                    element.style.transform = `translate(${position.x}px, ${position.y}px)`;
-                },
-                end(event) {
-                    console.log('drag ended', event);
-                },
-            },
-        });
-
-        interact('.dropzone').dropzone({
-            accept: element,
-            overlap: 0.75,
-            ondragenter: (event) => {
-                setIsInsideDropZone(true);
-                interact(element).draggable(false);
-                console.log('dragenter', event);
-
-            },
-            ondragleave: (event) => {
-                setIsInsideDropZone(false);
-                interact(element).draggable(true);
-                // console.log('dragleave', event);
-            },
-            ondrop: (event) => {
-                console.log('drop', event);
-            },
-        });
+        gsap.set(imageRef.current, { x: 0, y: 0 });
     }, []);
+
+    const handleDrag = (e, ui) => {
+        const { x } = ui;
+        const line = lineRef.current.getBoundingClientRect();
+        const image = imageRef.current.getBoundingClientRect();
+
+        if (image.right >= line.right) {
+            // alert("YOU WIN");
+            setDragged(true)
+        }
+    };
 
     const createTextSpans = (text) => {
         return text.split('').map((char, index) => (
             <span key={index} className="textItem" style={{ '--i': index + 1 }}>{char}</span>
-        ))
-    }
+        ));
+    };
 
     const handleHover = () => {
-        const newX = Math.random() * 90; // Random percentage for left
-        const newY = Math.random() * 85; // Random percentage for top
+        const newX = Math.random() * 90;
+        const newY = Math.random() * 85;
         setNoPosition({ left: newX, top: newY });
-        setMoveCount(prevCount => prevCount + 1)
-        console.log("move>>>", moveCount)
-        setHovered(!hovered)
-    }
+        setMoveCount(prevCount => prevCount + 1);
+        setHovered(!hovered);
+    };
 
     const getImageSrc = () => {
         if (moveCount < 10) {
-            return "/gifs/beMine.jpg"
+            return "/gifs/beMine.jpg";
         } else if (moveCount < 20) {
-            return "/gifs/waiting.gif"
+            return "/gifs/waiting.gif";
         } else if (moveCount < 36) {
-            return "gifs/wait2.gif"
+            return "/gifs/wait2.gif";
         } else if (moveCount < 50) {
-            return "sadGifs/nono.gif"
+            return "/sadGifs/nono.gif";
         } else if (moveCount < 66) {
-            return "sadGifs/cry.gif"
+            return "/sadGifs/cry.gif";
         } else if (moveCount < 70) {
-            return "sadGifs/cry2.gif"
+            return "/sadGifs/cry2.gif";
         } else {
-            return "sadGifs/mad.gif"
+            return "/sadGifs/mad.gif";
         }
-    }
+    };
 
     const getText = () => {
         if (moveCount < 10) {
-            return "Please say Yes  "
+            return "Please say Yes  ";
         } else if (moveCount < 20) {
-            return "Are you sure you don't want to be mine?"
+            return "Are you sure you don't want to be mine?";
         } else if (moveCount < 36) {
-            return "Okay, I get it. But think again!"
+            return "Okay, I get it. But think again!";
         } else if (moveCount < 50) {
-            return "No no no please don't pick no"
+            return "No no no please don't pick no";
         } else if (moveCount < 66) {
-            return "I'm gonna cry now"
+            return "I'm gonna cry now";
         } else if (moveCount < 70) {
-            return "Why? Why? Why?"
+            return "Why? Why? Why?";
         } else {
-            return "Now you can't reject me anymore !"
+            return "Now you can't reject me anymore!";
         }
-    }
-
+    };
 
     return (
         <div className='w-screen h-screen overflow-hidden relative bg-black'>
             {!clickedYes && (
-                <div className=" flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center">
                     <div className="textArea font-semibold text-3xl flex justify-center mt-20">
-                        {createTextSpans("I  wanna  tell  you  something  .  I  am  really  like you  .  Can  you  be  mine  ?")}
+                        {createTextSpans("I wanna tell you something. I really like you. Can you be mine?")}
                     </div>
-                    <div className=" my-14 w-60 h-60">
+                    <div className="my-14 w-60 h-60">
                         <img src={getImageSrc()} alt="" className='main-img rounded-md' />
                     </div>
-                    <p className=' flex items-center gap-2 font-semibold mb-10 text-xl'>{getText()}</p>
+                    <p className='flex items-center gap-2 font-semibold mb-10 text-xl'>{getText()}</p>
                     <div className="">
                         <button className={`random-button border-2 me-10 ${moveCount >= 70 ? 'w-[10%]' : ''} absolute left-[45%] top-[78%]`} onClick={() => setClickedYes(true)}>
                             Yes
@@ -128,24 +102,34 @@ const DragSlide = () => {
                         </button>
                     </div>
                 </div>
-
             )}
             {clickedYes && (
-                <div className=' min-w-screen min-h-screen overflow-hidden relative'>
-                    <p ref={elementRef} className='draggable border-2 border-yellow-200 w-32 h-33 z-30 absolute'>answer</p>
-                    <h1 className="fixed bottom-0 font-semibold tracking-wider text-lg p-2">Drag Dino to the correct place to see my secret!!</h1>
-                    <div className="dropzone absolute w-48 h-48 left-[30%] top-[60%] z-10">
-                        <img src="/home.png" alt="" className='w-full h-full select-none pointer-events-none' />
+                <div className=" w-screen h-screen overflow-hidden">
+                    <div style={{ position: 'relative', height: '80vh', width: '80vw', padding: '20px' }}>
+                        {!dragged && (
+                            <div>
+                                <div ref={lineRef} style={{ width: '50%', height: '2px', position: 'absolute', top: '50%', left: '13%' }}></div>
+                                <Draggable onDrag={handleDrag} axis='x' bounds='parent'>
+                                    <img ref={imageRef} src="/water.png" alt="" className=' w-14 absolute left-[10%] top-[42%] user-select-none' />
+                                </Draggable>
+                                <img src="/fire.png" alt="" className=' w-16 fixed top-[32%] left-[49%]' />
+                            </div>
+                        )}
+                        {dragged && (
+                            <div className="">
+                                <img src="/combine.png" alt="" className=' w-32 fixed top-[35%] left-[46%] contrast-200' />
+                            </div>
+                        )}
                     </div>
-                    {isInsideDropZone && (
-                        <div className="  bg-gray-100 fixed z-50 left-[20%] top-[20%] w-[60%] h-[60%]">
-                            <img src="/rest.gif" alt="" className=' w-full h-full select-none pointer-events-none' />
-                        </div>
-                    )}
+                    <p>Drag the hand to hold together !!</p>
                 </div>
             )}
+
         </div>
     );
 };
 
 export default DragSlide;
+
+
+// !dragged &&
