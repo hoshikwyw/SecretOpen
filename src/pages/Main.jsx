@@ -54,7 +54,7 @@ const Main = () => {
                 <>
                     {!clickNo && (
                         <>
-                            <p className=' font-semibold text-3xl tracking-wider text-gray-300'>Hello <span className=' font-bold text-blue-400'>{surName}</span> , welcome to my Secret Page.</p>
+                            <p className=' font-semibold text-3xl tracking-wider text-gray-300 mx-3'>Hello <span className=' font-bold text-blue-400'>{surName}</span> , welcome to my Secret Page.</p>
                             <div className='mt-10'>
                                 <p className='font-semibold text-xl tracking-wider'>Do You Wanna Go Next Slide ??</p>
                                 <div className="flex justify-center items-center mt-10">
@@ -66,7 +66,7 @@ const Main = () => {
                     )}
                     {clickNo && (
                         <div className='relative w-full h-full'>
-                            <img src="/sad.gif" alt="" className='mx-auto brightness-50 absolute top-[25%] left-[40%]' />
+                            <img src="/sad.gif" alt="" className=' selection:mx-auto brightness-50 absolute top-[25%] left-[10%] md:top-[40%] md:left-[40%] lg:top-[30%] lg:left-[42%]' />
                             {whyElements.map(element => (
                                 <span
                                     key={element.id}
@@ -78,12 +78,13 @@ const Main = () => {
                                         left: element.position.left,
                                         color: element.color,
                                         transition: 'top 7s, left 8s',
+                                        zIndex: 4,
                                     }}
                                 >
                                     Why??
                                 </span>
                             ))}
-                            <button className='btn btn-primary ml-5 fixed bottom-[10%] left-[45%]' onClick={() => setClickNo(false)}>Choose Again !!!</button>
+                            <button className='btn btn-primary ml-5 fixed bottom-[25%] left-[23%] md:bottom-[30%] md:left-[50%] lg:bottom-[25%] lg:left-[45%]' onClick={() => setClickNo(false)}>Choose Again Please !!!</button>
                         </div>
                     )}
                 </>
