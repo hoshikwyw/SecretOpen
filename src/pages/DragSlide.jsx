@@ -15,8 +15,6 @@ const DragSlide = () => {
     const imageRef = useRef(null);
     const lineRef = useRef(null);
 
-
-
     useEffect(() => {
         gsap.set(imageRef.current, { x: 0, y: 0 });
     }, []);
@@ -27,8 +25,7 @@ const DragSlide = () => {
         const image = imageRef.current.getBoundingClientRect();
 
         if (image.right >= line.right) {
-            // alert("YOU WIN");
-            setDragged(true)
+            setDragged(true);
         }
     };
 
@@ -44,6 +41,10 @@ const DragSlide = () => {
         setNoPosition({ left: newX, top: newY });
         setMoveCount(prevCount => prevCount + 1);
         setHovered(!hovered);
+    };
+
+    const handleTouchStart = () => {
+        handleHover();
     };
 
     const getImageSrc = () => {
@@ -86,7 +87,7 @@ const DragSlide = () => {
         <div className='w-screen h-screen overflow-hidden relative bg-black'>
             {!clickedYes && (
                 <div className="flex flex-col justify-center items-center">
-                    <div className="textArea font-semibold text-3xl flex justify-center mt-20">
+                    <div className="textArea font-semibold text-3xl mt-20 invisible md:visible lg:visible">
                         {createTextSpans("I wanna tell you something. I really like you. Can you be mine?")}
                     </div>
                     <div className="my-14 w-60 h-60">
@@ -94,10 +95,16 @@ const DragSlide = () => {
                     </div>
                     <p className='flex items-center gap-2 font-semibold mb-10 text-xl'>{getText()}</p>
                     <div className="">
-                        <button className={`random-button border-2 me-10 ${moveCount >= 70 ? 'w-[10%]' : ''} absolute left-[45%] top-[78%]`} onClick={() => setClickedYes(true)}>
+                        <button className={`random-button border-2 me-10 ${moveCount >= 70 ? 'w-[10%]' : ''} absolute left-[30%] top-[78%] md:left-[45%] md:top-[60%] lg:left-[45%] lg:top-[78%]`} onClick={() => setClickedYes(true)}>
                             Yes
                         </button>
-                        <button className={`random-button ${hovered ? 'hovered' : ''} border-2 ${moveCount >= 70 ? 'hidden' : ''}`} style={{ left: `${noPosition.left}%`, top: `${noPosition.top}%` }} onMouseEnter={handleHover} onMouseLeave={handleHover}>
+                        <button
+                            className={`random-button ${hovered ? 'hovered' : ''} border-2 ${moveCount >= 70 ? 'hidden' : ''}`}
+                            style={{ left: `${noPosition.left}%`, top: `${noPosition.top}%` }}
+                            onMouseEnter={handleHover}
+                            onMouseLeave={handleHover}
+                            onTouchStart={handleTouchStart}
+                            onTouchEnd={handleTouchStart}>
                             No
                         </button>
                     </div>
@@ -117,19 +124,15 @@ const DragSlide = () => {
                         )}
                         {dragged && (
                             <div className="">
-                                <img src="/combine.png" alt="" className=' w-36 fixed top-[35%] left-[45%] contrast-200' />
+                                <img src="/combine.png" alt="" className=' w-36 fixed lg:top-[35%] lg:left-[45%] md:top-[40%] md:left-[38%] top-[40%] left-[30%] contrast-200 scale-150' />
                             </div>
                         )}
                     </div>
                     <p>Drag the hand to hold together !!</p>
                 </div>
             )}
-
         </div>
     );
 };
 
 export default DragSlide;
-
-
-// !dragged &&
