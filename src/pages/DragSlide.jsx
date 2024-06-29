@@ -115,7 +115,7 @@ const DragSlide = () => {
                     <div style={{ position: 'relative', height: '80vh', width: '80vw', padding: '20px' }}>
                         {!dragged && (
                             <div>
-                                <div ref={lineRef} style={{ width: '50%', height: '2px', position: 'absolute', top: '50%', left: '13%' }}></div>
+                                <div ref={lineRef} style={{ width: '50%', height: '2px', position: 'absolute', top: '50%', left: '13%' }} className=' bg-white'></div>
                                 <Draggable onDrag={handleDrag} axis='x' bounds='parent'>
                                     <img ref={imageRef} src="/water.png" alt="" className=' w-16 absolute left-[10%] top-[42%] select-none cursor-grab' />
                                 </Draggable>
