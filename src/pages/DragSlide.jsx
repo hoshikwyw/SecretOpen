@@ -123,12 +123,15 @@ const DragSlide = () => {
                             </div>
                         )}
                         {dragged && (
-                            <div className="">
-                                <img src="/combine.png" alt="" className=' w-36 fixed lg:top-[35%] lg:left-[45%] md:top-[40%] md:left-[38%] top-[40%] left-[30%] contrast-200 scale-150 select-none' />
+                            <div className=" absolute left-[20%]">
+                                {/* <img src="/combine.png" alt="" className=' w-36 fixed lg:top-[35%] lg:left-[45%] md:top-[40%] md:left-[38%] top-[40%] left-[30%] contrast-200 scale-150 select-none' /> */}
+                                <video className=' w-[calc(100vw)] h-[calc(100vh)]' autoPlay>
+                                    <source src='/added.mp4' type='video/mp4' />
+                                </video>
                             </div>
                         )}
                     </div>
-                    <p>Drag the hand to hold together !!</p>
+                    {/* <p>Drag the hand to hold together !!</p> */}
                 </div>
             )}
         </div>
