@@ -11,6 +11,7 @@ const DragSlide = () => {
     const [noPosition, setNoPosition] = useState({ left: 52, top: 78 });
     const [moveCount, setMoveCount] = useState(0);
     const [dragged, setDragged] = useState(false);
+    const [vdEnd, setVdEnd] = useState(false)
     const imageRef = useRef(null);
     const dragContainerRef = useRef(null);
 
@@ -24,8 +25,8 @@ const DragSlide = () => {
                 onDragEnd() {
                     const draggableBounds = this.target.getBoundingClientRect();
                     const containerBounds = dragContainerRef.current.getBoundingClientRect();
-                    if (draggableBounds.right >= containerBounds.right - 300) {
-                        console.log("draggedddd");
+                    if (draggableBounds.right >= containerBounds.right - 30) {
+                        // console.log("draggedddd");
                         setDragged(true);
                     } else {
                         setDragged(false);
@@ -89,6 +90,11 @@ const DragSlide = () => {
         }
     };
 
+    const handleVideoEnd = () => {
+        // console.log("vd enddddd")
+        setVdEnd(true);
+    };
+
     return (
         <div className='w-screen h-screen overflow-hidden relative bg-black'>
             {!clickedYes && (
@@ -117,22 +123,34 @@ const DragSlide = () => {
                 </div>
             )}
             {clickedYes && (
-                <div className="w-screen h-screen overflow-hidden">
-                    <div style={{ position: 'relative', height: '80vh', width: '80vw', padding: '20px' }}>
+                <div className=" min-w-screen min-h-screen flex justify-center items-center">
+                    <div className=' w-full h-full'>
                         {!dragged && (
-                            <div className='flex items-center w-full h-full'>
+                            <div className='flex items-center'>
                                 <div ref={dragContainerRef} className="dragContainer w-[65%] h-[100px]">
                                     <img ref={imageRef} src="/water.png" alt="" className='w-24' draggable='false' />
                                 </div>
                                 <img src="/fire.png" alt="" className='w-24 -ms-9 mt-14' draggable='false' />
+                                <p className=' fixed top-2 font-mono font-semibold text-xl left-2'>Drag the water to the fire....</p>
                             </div>
                         )}
                         {dragged && (
-                            <div className="absolute left-[20%]">
-                                <video className='w-[calc(100vw)] h-[calc(100vh)]' autoPlay>
-                                    <source src='/added.mp4' type='video/mp4' />
-                                </video>
+                            <div className=" flex items-center justify-center w-full h-full">
+                                {!vdEnd && (
+                                    <>
+                                        <video className=' w-[70%]' autoPlay onEnded={handleVideoEnd} controls>
+                                            <source src='/0702.mp4' type='video/mp4' />
+                                        </video>
+                                        <h2 className='text-animation absolute font-bold z-50 text-6xl top-[45%] left-[40%] text-orange-500 font-mono'>Enjoy the show !!</h2>
+                                    </>
+                                )}
+                                {vdEnd && (
+                                    <div className=" ">
+                                        <p>go home </p>
+                                    </div>
+                                )}
                             </div>
+
                         )}
                     </div>
                 </div>
