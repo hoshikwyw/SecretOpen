@@ -136,7 +136,7 @@ const DragSlide = () => {
                             <div className=" flex items-center justify-center w-full h-full">
                                 {!vdEnd && (
                                     <>
-                                        <video className=' w-[70%]' autoPlay onEnded={handleVideoEnd} controls>
+                                        <video className=' w-[70%]' autoPlay onEnded={handleVideoEnd}>
                                             <source src='/0702.mp4' type='video/mp4' />
                                         </video>
                                         <h2 className='text-animation absolute font-bold z-50 text-3xl top-[45%] left-[40%] text-orange-500 font-mono'>Enjoy the show my dear!!</h2>
