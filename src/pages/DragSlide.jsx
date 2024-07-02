@@ -26,7 +26,6 @@ const DragSlide = () => {
                     const draggableBounds = this.target.getBoundingClientRect();
                     const containerBounds = dragContainerRef.current.getBoundingClientRect();
                     if (draggableBounds.right >= containerBounds.right - 30) {
-                        // console.log("draggedddd");
                         setDragged(true);
                     } else {
                         setDragged(false);
@@ -91,12 +90,11 @@ const DragSlide = () => {
     };
 
     const handleVideoEnd = () => {
-        // console.log("vd enddddd")
         setVdEnd(true);
     };
 
     return (
-        <div className='w-screen h-screen overflow-hidden relative bg-black'>
+        <div className=' w-screen h-screen overflow-hidden relative bg-black'>
             {!clickedYes && (
                 <div className="flex flex-col justify-center items-center">
                     <div className="textArea font-semibold text-3xl mt-20 invisible md:visible lg:visible">
@@ -141,12 +139,12 @@ const DragSlide = () => {
                                         <video className=' w-[70%]' autoPlay onEnded={handleVideoEnd} controls>
                                             <source src='/0702.mp4' type='video/mp4' />
                                         </video>
-                                        <h2 className='text-animation absolute font-bold z-50 text-6xl top-[45%] left-[40%] text-orange-500 font-mono'>Enjoy the show !!</h2>
+                                        <h2 className='text-animation absolute font-bold z-50 text-3xl top-[45%] left-[40%] text-orange-500 font-mono'>Enjoy the show my dear!!</h2>
                                     </>
                                 )}
                                 {vdEnd && (
                                     <div className=" w-full h-full flex flex-col justify-center items-center">
-                                        <p className=' font-semibold font-mono text-xl text-green-400 uppercase'>go home </p>
+                                        <p className=' font-semibold font-mono text-xl text-green-400 uppercase'>Go Home</p>
                                         <p>go back to the start page</p>
                                     </div>
                                 )}
