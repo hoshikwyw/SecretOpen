@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import Draggable from 'react-draggable';
-import CSSPlugin from 'gsap/CSSPlugin';
-import "../styles/DragPage.css"
+import { gsap } from 'gsap';
+import "../styles/DragPage.css";
+import { Draggable } from "gsap/Draggable";
 
-gsap.registerPlugin(CSSPlugin);
+gsap.registerPlugin(Draggable);
 
 const DragSlide = () => {
     const [clickedYes, setClickedYes] = useState(false);
@@ -13,21 +12,28 @@ const DragSlide = () => {
     const [moveCount, setMoveCount] = useState(0);
     const [dragged, setDragged] = useState(false);
     const imageRef = useRef(null);
-    const lineRef = useRef(null);
+    const dragContainerRef = useRef(null);
+
 
     useEffect(() => {
-        gsap.set(imageRef.current, { x: 0, y: 0 });
-    }, []);
-
-    const handleDrag = (e, ui) => {
-        const { x } = ui;
-        const line = lineRef.current.getBoundingClientRect();
-        const image = imageRef.current.getBoundingClientRect();
-
-        if (image.right >= line.right) {
-            setDragged(true);
+        if (imageRef.current && dragContainerRef.current) {
+            Draggable.create(imageRef.current, {
+                type: "x",
+                bounds: dragContainerRef.current,
+                inertia: true,
+                onDragEnd() {
+                    const draggableBounds = this.target.getBoundingClientRect();
+                    const containerBounds = dragContainerRef.current.getBoundingClientRect();
+                    if (draggableBounds.right >= containerBounds.right - 300) {
+                        console.log("draggedddd");
+                        setDragged(true);
+                    } else {
+                        setDragged(false);
+                    }
+                }
+            });
         }
-    };
+    }, [clickedYes]);
 
     const createTextSpans = (text) => {
         return text.split('').map((char, index) => (
@@ -111,27 +117,24 @@ const DragSlide = () => {
                 </div>
             )}
             {clickedYes && (
-                <div className=" w-screen h-screen overflow-hidden">
+                <div className="w-screen h-screen overflow-hidden">
                     <div style={{ position: 'relative', height: '80vh', width: '80vw', padding: '20px' }}>
                         {!dragged && (
-                            <div>
-                                <div ref={lineRef} style={{ width: '50%', height: '2px', position: 'absolute', top: '50%', left: '13%' }} className=' bg-white'></div>
-                                <Draggable onDrag={handleDrag} axis='x' bounds='parent'>
-                                    <img ref={imageRef} src="/water.png" alt="" className=' w-16 absolute left-[10%] top-[42%] select-none cursor-grab' />
-                                </Draggable>
-                                <img src="/fire.png" alt="" className=' w-16 fixed top-[32%] left-[49%]' />
+                            <div className='flex items-center w-full h-full'>
+                                <div ref={dragContainerRef} className="dragContainer w-[65%] h-[100px]">
+                                    <img ref={imageRef} src="/water.png" alt="" className='w-24' draggable='false' />
+                                </div>
+                                <img src="/fire.png" alt="" className='w-24 -ms-9 mt-14' draggable='false' />
                             </div>
                         )}
                         {dragged && (
-                            <div className=" absolute left-[20%]">
-                                {/* <img src="/combine.png" alt="" className=' w-36 fixed lg:top-[35%] lg:left-[45%] md:top-[40%] md:left-[38%] top-[40%] left-[30%] contrast-200 scale-150 select-none' /> */}
-                                <video className=' w-[calc(100vw)] h-[calc(100vh)]' autoPlay>
+                            <div className="absolute left-[20%]">
+                                <video className='w-[calc(100vw)] h-[calc(100vh)]' autoPlay>
                                     <source src='/added.mp4' type='video/mp4' />
                                 </video>
                             </div>
                         )}
                     </div>
-                    {/* <p>Drag the hand to hold together !!</p> */}
                 </div>
             )}
         </div>
