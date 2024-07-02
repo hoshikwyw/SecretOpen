@@ -145,8 +145,9 @@ const DragSlide = () => {
                                     </>
                                 )}
                                 {vdEnd && (
-                                    <div className=" ">
-                                        <p>go home </p>
+                                    <div className=" w-full h-full flex flex-col justify-center items-center">
+                                        <p className=' font-semibold font-mono text-xl text-green-400 uppercase'>go home </p>
+                                        <p>go back to the start page</p>
                                     </div>
                                 )}
                             </div>
